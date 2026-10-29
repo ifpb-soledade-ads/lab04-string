@@ -22,9 +22,11 @@ def contar_maiusculas(mensagem: str) -> int:
     Maiúsculas acentuadas (É, Ã, Ç...) contam.
     Ex.: contar_maiusculas("Oi TUDO bem?") → 5
     """
-    # TODO: implemente aqui
-    pass
-
+    total = 0
+    for letra in mensagem:
+        if letra.isupper():
+            total +=1
+    return total
 
 def mascarar_cartao(numero: str) -> str:
     """
@@ -33,8 +35,22 @@ def mascarar_cartao(numero: str) -> str:
     Com 4 dígitos ou menos, nada é mascarado.
     Ex.: mascarar_cartao("1234 5678 9012 3456") → "**** **** **** 3456"
     """
-    # TODO: implemente aqui
-    pass
+resultado = ""
+    digitos = 0
+    for i in numero:
+        if i.isdigit():
+            digitos += 1
+    vistos = 0
+    for c in numero:
+        if c.isdigit():
+            if vistos < digitos -4:
+                resultado += "*"
+            else:
+                resultado +=c
+            vistos += 1
+        else:
+            resultado += c
+    return resultado
 
 
 def nivel_senha(senha: str) -> str:
@@ -46,8 +62,31 @@ def nivel_senha(senha: str) -> str:
       "Senha inválida" → qualquer outro caso (vazia, só números,
                          sem número, caractere não permitido...)
     """
-    # TODO: implemente aqui
-    pass
+    tem_letra = 0
+    tem_numero = 0
+    tem_especial = 0
+    caractere_invalido =0 
+    for i in senha:
+        if i.isalpha():
+            tem_letra += 1
+        elif i.isdigit():
+            tem_numero += 1
+        elif i in "!#*@":
+            tem_especial +=1
+        else:
+            caractere_invalido += 1
+    if caractere_invalido > 0:
+        return "Senha inválida"
+    elif tem_letra == 0:
+        return "Senha inválida"
+    elif tem_numero == 0:
+        return "Senha inválida"
+    elif tem_letra and tem_numero and tem_especial:
+        return "Nível 3"
+    elif tem_letra and tem_numero:
+        return "Nível 2"
+    else:
+        return "Nível 1"
 
 
 def validar_cpf(cpf: str) -> str:
