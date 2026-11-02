@@ -23,7 +23,13 @@ def contar_maiusculas(mensagem: str) -> int:
     Ex.: contar_maiusculas("Oi TUDO bem?") → 5
     """
     # TODO: implemente aqui
-    pass
+    contador = 0
+    
+    for letra in mensagem:
+        if letra.isupper():
+            contador = contador + 1
+            
+    return contador
 
 
 def mascarar_cartao(numero: str) -> str:
@@ -34,7 +40,15 @@ def mascarar_cartao(numero: str) -> str:
     Ex.: mascarar_cartao("1234 5678 9012 3456") → "**** **** **** 3456"
     """
     # TODO: implemente aqui
-    pass
+    resultado = ""
+    vistos = 0
+    for caractere in numero[::-1]:
+        if caractere.isdigit():
+            vistos = vistos + 1
+            if vistos > 4:
+                caractere = "*"
+        resultado = caractere + resultado
+    return resultado
 
 
 def nivel_senha(senha: str) -> str:
@@ -47,7 +61,29 @@ def nivel_senha(senha: str) -> str:
                          sem número, caractere não permitido...)
     """
     # TODO: implemente aqui
-    pass
+    tem_letra = False
+    tem_numero = False
+    tem_especial = False
+    tem_invalido = False
+    for caractere in senha:
+        if caratere.isalpha():
+            tem_letra = True
+        elif caractere.isdigit():
+            tem_numero = True
+        elif caractere in "!#*@":
+            tem_especial = True
+        else:
+            tem_invalido = True
+            
+    if tem_invalido or not tem_letra:
+        return "Senha Inválida"
+    if tem_especial and not tem_numero:
+        return "Senha Inválida"
+    if tem_especial:
+        return "Nível 3"
+    if tem_numero:
+        return "Nível 2"
+    return "Nível 1"
 
 
 def validar_cpf(cpf: str) -> str:
